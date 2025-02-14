@@ -26,7 +26,8 @@ function showQuestion() {
         options.forEach(option => {
             const button = document.createElement('button');
             button.innerText = option;
-            button.onclick = () => checkAnswer(option);
+            button.classList.add('option-button');
+            button.onclick = () => checkAnswer(button, option);
             optionsElement.appendChild(button);
         });
     } else {
@@ -34,13 +35,22 @@ function showQuestion() {
     }
 }
 
-function checkAnswer(selectedAnswer) {
+function checkAnswer(button, selectedAnswer) {
     const correctAnswer = questions[currentQuestionIndex].correct_answer;
     if (selectedAnswer === correctAnswer) {
+        button.style.backgroundColor = 'green';
         score++;
+    } else {
+        button.style.backgroundColor = 'red';
+      
+        score=score-0.5;
+      
     }
-    currentQuestionIndex++;
-    showQuestion();
+    
+    setTimeout(() => {
+        currentQuestionIndex++;
+        showQuestion();
+    }, 1000);
 }
 
 function displayResult() {
